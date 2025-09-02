@@ -2,7 +2,8 @@ name: Collect cultural events
 
 on:
   schedule:
-    - cron: '0 4 * * *'  # 06:00 Europe/Madrid (UTC+2 in summer)
+    # Cron en UTC. 04:00 UTC ≈ 06:00 Europe/Madrid (verano).
+    - cron: '0 4 * * *'
   workflow_dispatch:
 
 permissions:
@@ -17,25 +18,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-  with:
-    fetch-depth: 0
+        with:
+          fetch-depth: 0
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: 'requirements.txt'
+
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
       - name: Run collector
+        env:
+          PYTHONPATH: .
         run: |
-          python scripts/collect.py
+          python -m scripts.collect
+
       - name: Commit & push changes
         run: |
+          set -e
+          BRANCH="${GITHUB_REF_NAME:-main}"
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          BRANCH="${GITHUB_REF_NAME:-main}"
+
           git fetch origin "$BRANCH"
           git pull --rebase origin "$BRANCH"
+
           git add data/events.json data/meta.json || true
           if ! git diff --cached --quiet; then
             git commit -m "chore: update events.json [skip ci]"
