@@ -1,0 +1,10 @@
+timezone: "Europe/Madrid"
+
+institutions:
+  - id: "mpm"
+    enabled: true
+    name: "Museo Picasso Málaga"
+    base_url: "https://www.museopicassomalaga.org"
+    endpoints:
+      exhibitions: "/exposiciones"
+      activities: "/actividades"

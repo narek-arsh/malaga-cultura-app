@@ -1,0 +1,17 @@
+[
+  {
+    "type": "activity",
+    "title": "Visita guiada especial (ejemplo)",
+    "description": "Entrada de ejemplo para validar el flujo manual.",
+    "image_url": null,
+    "institution_id": "mpm",
+    "institution_name": "Museo Picasso Málaga",
+    "city": "Málaga",
+    "url": "https://www.museopicassomalaga.org/actividades",
+    "datetime_start": "2025-09-20T11:00:00+02:00",
+    "datetime_end": "2025-09-20T12:00:00+02:00",
+    "all_day": false,
+    "status": "scheduled",
+    "source": "manual"
+  }
+]
