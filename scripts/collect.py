@@ -6,11 +6,18 @@ Collector orchestrator.
 - Merges with manual_events.json (manual > scraper)
 - Writes data/events.json and data/meta.json
 """
+# ... imports arriba ...
 import json, os, hashlib, time, importlib, yaml, sys
 from copy import deepcopy
 from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(__file__))
+
+# 👇 AÑADE ESTO:
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+# ☝️ Con esto, 'scrapers' está en el path de Python
+
 CONFIG_PATH = os.path.join(ROOT, "config", "institutions.yaml")
 DATA_DIR = os.path.join(ROOT, "data")
 EVENTS_PATH = os.path.join(DATA_DIR, "events.json")
