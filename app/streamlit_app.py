@@ -16,6 +16,9 @@ BUILD_PATH = os.path.join(ROOT, "build", "events.json")
 MANUAL_PATH = os.path.join(ROOT, "data", "manual.json")
 CFG_PATH = os.path.join(ROOT, "config", "institutions.yaml")
 
+# ✅ Interruptor: desactivar filtros (True = filtros activados; False = desactivados)
+FILTERS_ENABLED = False
+
 st.set_page_config(page_title=APP_TITLE, layout="wide")
 
 @st.cache_data
@@ -33,63 +36,10 @@ def ensure_session_state():
         st.session_state.page_size = 24
     if "offset" not in st.session_state:
         st.session_state.offset = 0
-    if "q_start" not in st.session_state or "q_end" not in st.session_state:
-        today = date.today()
-        st.session_state.q_start = today
-        st.session_state.q_end = today + timedelta(days=7)
     if "inst_filter" not in st.session_state:
         st.session_state.inst_filter = "Todas"
     if "show_nodate" not in st.session_state:
-        # Debug: mostrar tarjetas aunque no tengan fecha detectada
-        st.session_state.show_nodate = True
-
-def quick_filters():
-    today = date.today()
-    col1, col2, col3, col4, col5 = st.columns([1,1,1,1,2])
-    if col1.button("Hoy"):
-        st.session_state.q_start = today
-        st.session_state.q_end = today
-        st.session_state.offset = 0
-    if col2.button("Mañana"):
-        st.session_state.q_start = today + timedelta(days=1)
-        st.session_state.q_end = today + timedelta(days=1)
-        st.session_state.offset = 0
-    if col3.button("Este finde"):
-        wd = today.weekday()
-        sat = today + timedelta(days=(5 - wd) % 7)
-        sun = sat + timedelta(days=1)
-        st.session_state.q_start = sat
-        st.session_state.q_end = sun
-        st.session_state.offset = 0
-    if col4.button("Próx. 7 días"):
-        st.session_state.q_start = today
-        st.session_state.q_end = today + timedelta(days=7)
-        st.session_state.offset = 0
-    with col5:
-        st.write("")
-
-def overlaps_exhibition(ev: Dict, qstart: date, qend: date) -> bool:
-    ds = ev.get("date_start")
-    de = ev.get("date_end")
-    if not ds and not de:
-        return False
-    s = datetime.fromisoformat(ds).date() if ds else datetime.fromisoformat(de).date()
-    e = datetime.fromisoformat(de).date() if de else datetime.fromisoformat(ds).date()
-    return (s <= qend) and (e >= qstart)
-
-def overlaps_activity(ev: Dict, qstart: date, qend: date) -> bool:
-    ds = ev.get("datetime_start")
-    de = ev.get("datetime_end")
-    if ds:
-        d = datetime.fromisoformat(ds.replace("Z","")).date()
-        if qstart <= d <= qend:
-            return True
-    d2 = ev.get("date_start")
-    if d2:
-        d = datetime.fromisoformat(d2).date()
-        if qstart <= d <= qend:
-            return True
-    return False
+        st.session_state.show_nodate = True  # solo útil cuando activemos filtros
 
 def human_date(ev: Dict) -> str:
     if ev["type"] == "exhibition":
@@ -146,36 +96,6 @@ def render_card(ev: Dict, col):
             links.append(f"💶 {ev['price']}")
         if links:
             st.markdown(" · ".join(links))
-
-def filter_and_sort(events: List[Dict], inst_filter: str, qstart: date, qend: date):
-    show_nodate = st.session_state.get("show_nodate", False)
-
-    if inst_filter and inst_filter != "Todas":
-        events = [e for e in events if e.get("institution") == inst_filter]
-
-    filtered = []
-    for e in events:
-        include = False
-        if e["type"] == "exhibition":
-            has_date = bool(e.get("date_start") or e.get("date_end"))
-            if has_date and overlaps_exhibition(e, qstart, qend):
-                include = True
-            elif show_nodate and not has_date:
-                include = True
-        else:
-            has_date = bool(e.get("datetime_start") or e.get("date_start") or e.get("datetime_end"))
-            if has_date and overlaps_activity(e, qstart, qend):
-                include = True
-            elif show_nodate and not has_date:
-                include = True
-
-        if include:
-            filtered.append(e)
-
-    def key(e):
-        primary = e.get("date_start") or (e.get("datetime_start") or "")[:10] or "9999-12-31"
-        return (primary, e.get("title",""))
-    return sorted(filtered, key=key)
 
 def manual_form(institutions: List[str]):
     st.subheader("Añadir / editar evento (entrada manual)")
@@ -281,43 +201,63 @@ def manual_form(institutions: List[str]):
                     mime="application/json"
                 )
 
+def primary_date_str(e: Dict) -> str:
+    """
+    Fecha principal para ordenar:
+    - Exhibiciones: date_start > date_end > datetime_start > datetime_end
+    - Actividades: datetime_start > date_start > datetime_end > date_end
+    Fallback: '9999-12-31' (empuja al final)
+    """
+    def pick(*keys):
+        for k in keys:
+            v = e.get(k)
+            if v:
+                return v[:10] if "datetime" in k else v
+        return None
+
+    if e.get("type") == "exhibition":
+        d = pick("date_start", "date_end", "datetime_start", "datetime_end")
+    else:
+        d = pick("datetime_start", "date_start", "datetime_end", "date_end")
+    return d or "9999-12-31"
+
 def main():
     st.title(APP_TITLE)
     cfg = load_cfg()
     ensure_session_state()
-    inst_names = ["Todas"] + [i["name"] for i in cfg["institutions"]]
+
+    # Sidebar: sin filtros (solo administración/paginación)
+    inst_names = [i["name"] for i in cfg["institutions"]]
     with st.sidebar:
-        st.header("Filtros")
-        quick_filters()
-        st.date_input("Desde", value=st.session_state.q_start, key="q_start")
-        st.date_input("Hasta", value=st.session_state.q_end, key="q_end")
-        st.selectbox("Institución", options=inst_names, key="inst_filter")
-        st.divider()
-        st.caption("Carga incremental")
+        st.header("Administración")
+        if not FILTERS_ENABLED:
+            st.caption("Filtros desactivados temporalmente.")
         st.number_input("Tamaño de página", 8, 60, key="page_size")
-        st.checkbox("Mostrar eventos sin fecha (debug)", key="show_nodate")
         st.divider()
-        manual_form([i["name"] for i in cfg["institutions"]])
+        manual_form(inst_names)
 
+    # Datos
     events = load_events()
-    shown = filter_and_sort(events, st.session_state.inst_filter, st.session_state.q_start, st.session_state.q_end)
 
-    # Diagnóstico rápido
-    from collections import Counter
+    # ✅ Sin filtros: mostramos TODO, solo ordenamos por fecha y título
+    shown = sorted(
+        events,
+        key=lambda e: (primary_date_str(e), e.get("title", ""))
+    )
+
+    # Diagnóstico simple
     total = len(events)
     con_fecha = sum(1 for e in events if (e.get("date_start") or e.get("date_end") or e.get("datetime_start") or e.get("datetime_end")))
-    st.caption(f"Eventos capturados: {total} · Con fecha: {con_fecha} · Sin fecha: {total - con_fecha}")
-    by_inst_all = dict(Counter(e.get("institution") for e in events))
-    by_inst_shown = dict(Counter(e.get("institution") for e in shown))
-    st.caption(f"Totales por institución: {by_inst_all} · Mostrados tras filtros: {by_inst_shown}")
+    st.caption(f"Eventos capturados: {total} · Con fecha: {con_fecha} · Sin fecha: {total - con_fecha} · (Filtros: OFF)")
 
-    st.subheader(f"Resultados ({len(shown)})")
+    # Paginación
     start = st.session_state.offset
     end = start + st.session_state.page_size
     page = shown[start:end]
 
+    st.subheader(f"Resultados ({len(shown)})")
     if not page:
-        st.info("No hay resultados para ese rango.")
+        st.info("No hay eventos cargados todavía.")
     else:
         row_cols = st.columns(4)
         for idx, ev in enumerate(page):
