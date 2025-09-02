@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Scraper for Museo Picasso Málaga (MPM)
-- Exposiciones: extrae de la propia lista (fechas DD/MM/YYYY, título, imagen de background).
-- Actividades: extrae de la lista; el texto del <a> incluye fechas en español + título + categoría.
+Scraper para Museo Picasso Málaga (MPM)
+- Exposiciones: se extraen desde el listado (fechas DD/MM/YYYY, título, imagen de background).
+- Actividades: se extraen desde el listado de tarjetas (el <a> incluye rango de fechas en español + <h2> título).
 """
 from __future__ import annotations
 import re, hashlib
@@ -12,7 +12,8 @@ import requests
 from bs4 import BeautifulSoup
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; MalagaCulturalBot/1.0; +https://example.com)"
+    "User-Agent": "Mozilla/5.0 (compatible; MalagaCulturalBot/1.0; +https://example.com)",
+    "Accept-Language": "es-ES,es;q=0.9,en;q=0.8"
 }
 BASE = "https://www.museopicassomalaga.org"
 
@@ -46,7 +47,7 @@ def _norm(s: str) -> str:
 
 def _parse_spanish_date_range(text: str):
     """
-    Devuelve (date_start, date_end, remainder_text) en YYYY-MM-DD a partir del texto en ES.
+    Devuelve (date_start, date_end, remainder_text) en YYYY-MM-DD.
     Soporta:
       - '16 septiembre 2025 – 14 julio 2026 …'
       - '18 – 19 septiembre 2025 …'
@@ -55,8 +56,12 @@ def _parse_spanish_date_range(text: str):
       - '4 octubre 2025 …'
     """
     t = _norm(text)
+
     # dd mes yyyy - dd mes yyyy
-    pat1 = re.compile(r'(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})-(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})')
+    pat1 = re.compile(
+        r'(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})'
+        r'-(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})'
+    )
     m = pat1.search(t)
     if m:
         d1, mon1, y1, d2, mon2, y2 = m.groups()
@@ -75,7 +80,7 @@ def _parse_spanish_date_range(text: str):
         rest = t[m.end():].strip()
         return ds, de, rest
 
-    # mes - mes yyyy  (aprox 1..28)
+    # mes - mes yyyy (aprox 1..28)
     pat3 = re.compile(r'(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)-(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})')
     m = pat3.search(t)
     if m:
@@ -97,7 +102,7 @@ def _parse_spanish_date_range(text: str):
             rest = t[m.end():].strip()
             return ds, de, rest
 
-    # dd mes yyyy
+    # dd mes yyyy (día único)
     pat4 = re.compile(r'(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})')
     m = pat4.search(t)
     if m:
@@ -108,7 +113,7 @@ def _parse_spanish_date_range(text: str):
 
     return None
 
-def _clean_title_from_rest(rest: str) -> str:
+def _clean_title_from_rest(rest: str) -> Optional[str]:
     if not rest:
         return None
     tail = rest.strip(" -·,;")
@@ -125,7 +130,7 @@ def collect(config: dict) -> List[Dict[str, Any]]:
     institution_name = "Museo Picasso Málaga"
     events: List[Dict[str, Any]] = []
 
-    # ── Exposiciones (desde el listado) ───────────────────────────────────────
+    # ── Exposiciones (listado) ────────────────────────────────────────────────
     try:
         soup = _get(_abs(config["endpoints"]["exhibitions"]))
         for info in soup.select('.exhibitionCurrentFuture-info'):
@@ -188,12 +193,19 @@ def collect(config: dict) -> List[Dict[str, Any]]:
     except Exception:
         pass
 
-    # ── Actividades (desde el listado; all-day por defecto) ───────────────────
+    # ── Actividades (tarjetas en listado) ─────────────────────────────────────
     try:
         soup = _get(_abs(config["endpoints"]["activities"]))
+        # contenedor típico en tu HTML
+        container = soup.select_one(".color-card-container.three-columns")
+        if container:
+            cards = container.select("a.colorCard[href*='/actividades/']")
+        else:
+            cards = soup.select("a.colorCard[href*='/actividades/']")
+
         seen = set()
-        for a in soup.find_all('a', href=True):
-            href = a['href']
+        for a in cards:
+            href = a.get('href','')
             if "/actividades/" not in href or href.rstrip('/').endswith('/actividades'):
                 continue
             link = _abs(href.split('#')[0])
@@ -201,16 +213,26 @@ def collect(config: dict) -> List[Dict[str, Any]]:
                 continue
             seen.add(link)
 
-            text = a.get_text(" ", strip=True)
-            parsed = _parse_spanish_date_range(text)
+            # Prefiere <p> con fechas + <h2> título
+            p_dates = None
+            for p in a.find_all("p"):
+                txt = p.get_text(" ", strip=True)
+                if re.search(r"(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)", txt, re.I):
+                    p_dates = txt; break
+            h2 = a.find(["h2","h3"])
+            title = h2.get_text(" ", strip=True) if h2 else None
+
+            base_text = p_dates or a.get_text(" ", strip=True)
+            parsed = _parse_spanish_date_range(base_text)
             if not parsed:
+                # si no podemos parsear fechas del listado, saltamos
                 continue
             ds, de, rest = parsed
-            title = _clean_title_from_rest(rest) or "Actividad"
+            if not title:
+                title = _clean_title_from_rest(rest) or "Actividad"
 
-            # Imagen (si el <a> incluye <img>, úsala)
-            img = a.find('img')
-            image_url = _abs(img['src']) if img and img.get('src') else None
+            img = a.find("img")
+            image_url = _abs(img["src"]) if img and img.get("src") else None
 
             dt_start = ds + "T00:00:00+02:00"
             dt_end   = de + "T23:59:00+02:00"
