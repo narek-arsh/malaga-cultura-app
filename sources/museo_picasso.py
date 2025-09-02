@@ -23,7 +23,7 @@ def _fetch(url: str) -> Optional[str]:
 def _iso(d: str) -> Optional[str]:
     # dd/mm/yyyy -> yyyy-mm-dd
     m = re.match(r"^\s*(\d{2})/(\d{2})/(\d{4})\s*$", d or "")
-    if not m: 
+    if not m:
         return None
     return f"{m.group(3)}-{m.group(2)}-{m.group(1)}"
 
@@ -52,8 +52,8 @@ def scrape_mpm(base_url: str, exhibitions_url: str, activities_url: str, tickets
         else:
             styled = div.find(style=True)
             if styled and "background-image" in styled.get("style",""):
-                m = re.search(r"url\\(([^)]+)\\)", styled["style"])
-                if m: 
+                m = re.search(r"url\(([^)]+)\)", styled["style"])
+                if m:
                     img = urljoin(base_url, m.group(1).strip("'\""))
 
         # Tipo por URL
