@@ -7,8 +7,8 @@ institutions:
     type: "Museo de arte"
     base_url: "https://www.museopicassomalaga.org/"
     tickets_url: "https://www.museopicassomalaga.org/es/visita"
-    exhibitions_url: "https://www.museopicassomalaga.org/"
-    activities_url: "https://tickets.museopicassomalaga.org/es/854-actividades"
+    exhibitions_url: "https://www.museopicassomalaga.org/exposiciones"
+    activities_url: "https://www.museopicassomalaga.org/actividades"
     rss_exhibitions_url: ""
     rss_activities_url: ""
 
