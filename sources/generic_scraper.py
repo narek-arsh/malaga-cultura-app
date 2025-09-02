@@ -32,10 +32,10 @@ def collect_detail_links(list_url: str, domain_host: str, hint: str = "") -> Lis
     links: Set[str] = set()
     for a in soup.find_all("a", href=True):
         href = a["href"].strip()
-        if not href or href.startswith("#"): 
+        if not href or href.startswith("#"):
             continue
         absu = urljoin(list_url, href)
-        if urlparse(absu).netloc != domain_host: 
+        if urlparse(absu).netloc != domain_host:
             continue
         # Si se indica hint (p.ej. "/expos"), lo exigimos
         if hint and hint not in absu:
