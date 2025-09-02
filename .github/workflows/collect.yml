@@ -27,6 +27,7 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: python scripts/collect.py
+        run: python -m scripts.collect
 
       - name: Commit & push build
         run: |
