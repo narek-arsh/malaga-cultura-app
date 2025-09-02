@@ -1,4 +1,4 @@
-name: Collect Events
+name: Collect Events (MPM + Thyssen)
 
 on:
   schedule:
