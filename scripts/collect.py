@@ -12,6 +12,12 @@ from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(__file__))
 
+# Asegura que el paquete 'scrapers' se pueda importar
+import sys
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+
+
 # Ensure project root is on PYTHONPATH for 'scrapers' imports
 import sys
 if ROOT not in sys.path:
@@ -102,8 +108,11 @@ def main():
             continue
         try:
             res = mod.collect(inst)
-            scraped.extend(res)
-            print(f"[OK] {inst['id']} -> {len(res)} events")
+scraped.extend(res)
+by_type = {}
+for e in res:
+    by_type[e.get('type','?')] = by_type.get(e.get('type','?'), 0) + 1
+print(f"[OK] {inst['id']} -> {len(res)} events (by type: {by_type})")
         except Exception as e:
             print(f"[ERROR] {inst['id']} scraper failed: {e}")
 
