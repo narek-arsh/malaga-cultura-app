@@ -2,8 +2,6 @@ import os, yaml
 from typing import List, Dict
 from mc_utils.model import Event, now_iso
 from mc_utils.storage import load_json, save_json_local
-from sources.generic_scraper import scrape_from_listing
-from sources.rss_scraper import scrape_rss_url
 from sources.museo_picasso import scrape_mpm
 from sources.thyssen import scrape_thyssen
 
@@ -38,6 +36,9 @@ def main():
         cfg = yaml.safe_load(f)
 
     institutions = cfg.get("institutions", [])
+    # Solo dejamos activadas las que estén en el YAML y enabled != false
+    allowed_ids = {i["id"] for i in institutions if i.get("enabled", True)}
+
     all_events: List[Event] = []
 
     for inst in institutions:
@@ -47,27 +48,12 @@ def main():
         base_url = inst.get("base_url") or ""
         ex_url = inst.get("exhibitions_url") or ""
         ac_url = inst.get("activities_url") or ""
-        rss_ex = inst.get("rss_exhibitions_url") or ""
-        rss_ac = inst.get("rss_activities_url") or ""
 
-        # 1) Specific scrapers
         if iid == "mpm":
             all_events += scrape_mpm(base_url, ex_url, ac_url, tickets_url, iid, name)
-            # continue to RSS/generic for extra, just in case (no 'continue')
         elif iid == "thyssen":
             all_events += scrape_thyssen(ex_url, ac_url, tickets_url, iid, name)
-
-        # 2) RSS
-        if rss_ex:
-            all_events += [e for e in scrape_rss_url(rss_ex, "exhibition", name, iid)]
-        if rss_ac:
-            all_events += [e for e in scrape_rss_url(rss_ac, "activity", name, iid)]
-
-        # 3) Generic fallback
-        if ex_url:
-            all_events += scrape_from_listing(ex_url, "exhibition", name, iid, tickets_url, hint="/expos")
-        if ac_url:
-            all_events += scrape_from_listing(ac_url, "activity", name, iid, tickets_url, hint="/activ")
+        # No hay más scrapers aquí a propósito
 
     scraped = [e.to_dict() for e in all_events]
 
@@ -84,6 +70,9 @@ def main():
 
     tmp_map = merge_events(existing_map, scraped)
     tmp_map = merge_events(tmp_map, manual_list)
+
+    # PRUNE: elimina cualquier evento de instituciones no permitidas
+    tmp_map = {k: v for k, v in tmp_map.items() if v.get("institution_id") in allowed_ids}
 
     out_list = sorted(list(tmp_map.values()), key=event_sort_key)
 
