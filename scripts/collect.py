@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from typing import List, Optional, Tuple, Set
 from urllib.parse import urljoin, urlparse
 from mc_utils.model import Event, make_event_id, now_iso
-from .common import pick_title, pick_description, pick_image
 from mc_utils.dates import parse_date_range, parse_spanish_date
 
 UA = {
