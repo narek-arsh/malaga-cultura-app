@@ -1,145 +1,81 @@
-import re, requests
-from bs4 import BeautifulSoup
-from typing import List, Optional, Tuple, Set
-from urllib.parse import urljoin, urlparse
-from mc_utils.model import Event, make_event_id, now_iso
-from mc_utils.dates import parse_date_range, parse_spanish_date
+import os, yaml
+from typing import List, Dict
+from mc_utils.model import Event, now_iso
+from mc_utils.storage import load_json, save_json_local
+from sources.museo_picasso import scrape_mpm
 
-UA = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-    )
-}
+ROOT = os.path.dirname(os.path.dirname(__file__))
 
-def _fetch(url: str) -> Optional[str]:
-    try:
-        r = requests.get(url, headers=UA, timeout=25)
-        if r.status_code == 200 and r.text and len(r.text) > 500:
-            return r.text
-    except requests.RequestException:
-        return None
-    return None
-
-def _collect_detail_links(list_url: str, must_contain: str) -> List[str]:
-    """Recoge enlaces internos de un listado, filtrando por subruta (p.ej. '/exposiciones/' o '/actividades/')."""
-    html = _fetch(list_url)
-    if not html:
-        print(f"[mpm:list] vacío: {list_url}")
-        return []
-    soup = BeautifulSoup(html, "html.parser")
-    host = urlparse(list_url).netloc
-    links: Set[str] = set()
-    for a in soup.find_all("a", href=True):
-        href = a["href"].strip()
-        if not href or href.startswith("#"):
-            continue
-        absu = urljoin(list_url, href)
-        if urlparse(absu).netloc != host:
-            continue
-        if must_contain not in absu:
-            continue
-        links.add(absu)
-    out = sorted(links)
-    print(f"[mpm:list] {list_url} -> {len(out)} enlaces ({must_contain})")
+def merge_events(existing: Dict[str, Dict], new_events: List[Dict]) -> Dict[str, Dict]:
+    out = dict(existing)
+    for ev in new_events:
+        eid = ev["id"]
+        if eid in out:
+            changed = False
+            for k, v in ev.items():
+                if k in ["first_seen", "last_seen", "last_changed"]:
+                    continue
+                if out[eid].get(k) != v:
+                    changed = True
+                    out[eid][k] = v
+            out[eid]["last_seen"] = now_iso()
+            if changed:
+                out[eid]["last_changed"] = now_iso()
+        else:
+            ev["first_seen"] = now_iso()
+            ev["last_seen"] = now_iso()
+            ev["last_changed"] = now_iso()
+            out[eid] = ev
     return out
 
-def _parse_dates(soup: BeautifulSoup) -> Tuple[Optional[str], Optional[str]]:
-    """Intenta fechas por <time>, luego por texto global con nuestros parsers en español."""
-    # 1) <time datetime="YYYY-MM-DD">
-    dates = []
-    for t in soup.find_all("time"):
-        dt = (t.get("datetime") or "").strip()
-        if re.match(r"^\d{4}-\d{2}-\d{2}", dt):
-            dates.append(dt[:10])
-        else:
-            txt = t.get_text(" ", strip=True)
-            d = parse_spanish_date(txt)
-            if d:
-                dates.append(d.isoformat())
-    if len(dates) >= 2:
-        return dates[0], dates[1]
-    if len(dates) == 1:
-        return dates[0], None
+def main():
+    cfg_path = os.path.join(ROOT, "config", "institutions.yaml")
+    with open(cfg_path, "r", encoding="utf-8") as f:
+        cfg = yaml.safe_load(f)
 
-    # 2) Texto global (soporta: "del 01 de abril al 14 de septiembre de 2025", "23/05/2025 - 12/12/2025", etc.)
-    txt = soup.get_text(" ", strip=True)
-    s, e = parse_date_range(txt)
-    if s and e:
-        return s.isoformat(), e.isoformat()
-    d = parse_spanish_date(txt)
-    if d:
-        return d.isoformat(), None
-    return None, None
+    institutions = cfg.get("institutions", [])
+    allowed_ids = {i["id"] for i in institutions if i.get("enabled", True)}
+    print(f"[collect] instituciones activas: {sorted(list(allowed_ids))}")
 
-def _status_from_text(soup: BeautifulSoup) -> str:
-    low = soup.get_text(" ", strip=True).lower()
-    if any(w in low for w in ("cancelado", "cancelada", "suspendido", "suspendida")):
-        return "cancelled"
-    if any(w in low for w in ("aplazado", "aplazada", "pospuesto", "pospuesta")):
-        return "postponed"
-    return "scheduled"
+    all_events: List[Event] = []
 
-def _scrape_detail(url: str, institution_id: str, institution_name: str, event_type: str, tickets_url: Optional[str]) -> Optional[Event]:
-    html = _fetch(url)
-    if not html:
-        print(f"[mpm:detail] sin HTML: {url}")
-        return None
-    soup = BeautifulSoup(html, "html.parser")
+    for inst in institutions:
+        iid = inst["id"]
+        if iid not in allowed_ids:
+            continue
+        name = inst["name"]
+        tickets_url = inst.get("tickets_url")
+        base_url = inst.get("base_url") or ""
+        ex_url = inst.get("exhibitions_url") or ""
+        ac_url = inst.get("activities_url") or ""
 
-    title = pick_title(soup) or "(Sin título)"
-    img = pick_image(soup, url)
-    desc = pick_description(soup)
-    ds, de = _parse_dates(soup)
-    status = _status_from_text(soup)
+        if iid == "mpm":
+            prev = len(all_events)
+            all_events += scrape_mpm(base_url, ex_url, ac_url, tickets_url, iid, name)
+            print(f"[collect] mpm añadidos: {len(all_events) - prev}")
 
-    eid = make_event_id(url, institution_id, title)
-    now = now_iso()
+    scraped = [e.to_dict() for e in all_events]
+    print(f"[collect] total scraped: {len(scraped)}")
 
-    if event_type == "exhibition":
-        return Event(
-            id=eid, type="exhibition", institution=institution_name, institution_id=institution_id,
-            title=title, description=desc, image_url=img, detail_url=url, tickets_url=tickets_url, status=status,
-            date_start=ds, date_end=de, datetime_start=None, datetime_end=None, price=None,
-            first_seen=now, last_seen=now, last_changed=now, source=url
-        )
-    else:
-        # Si no hay horas claras, dejamos todo-día (00:00–23:59) en el rango detectado.
-        dt_start = f"{ds}T00:00:00+02:00" if ds else None
-        dt_end   = f"{de}T23:59:00+02:00" if de else None
-        return Event(
-            id=eid, type="activity", institution=institution_name, institution_id=institution_id,
-            title=title, description=desc, image_url=img, detail_url=url, tickets_url=tickets_url, status=status,
-            date_start=None, date_end=None, datetime_start=dt_start, datetime_end=dt_end, price=None,
-            first_seen=now, last_seen=now, last_changed=now, source=url
-        )
+    manual_path = os.path.join(ROOT, "data", "manual.json")
+    manual_list = load_json(manual_path, [])
+    print(f"[collect] manuales: {len(manual_list)}")
 
-def scrape_mpm(base_url: str,
-               exhibitions_url: str,
-               activities_url: str,
-               tickets_url: Optional[str],
-               institution_id: str,
-               institution_name: str) -> List[Event]:
-    events: List[Event] = []
+    build_path = os.path.join(ROOT, "build", "events.json")
+    existing_list = load_json(build_path, [])
+    existing_map = {e["id"]: e for e in existing_list}
 
-    # EXHIBICIONES
-    if exhibitions_url:
-        expo_links = _collect_detail_links(exhibitions_url, "/exposiciones/")
-        ok = 0
-        for link in expo_links:
-            ev = _scrape_detail(link, institution_id, institution_name, "exhibition", tickets_url)
-            if ev:
-                events.append(ev); ok += 1
-        print(f"[mpm] exposiciones: {ok}")
+    def event_sort_key(e):
+        d = e.get("date_start") or (e.get("datetime_start") or "")[:10] or "9999-12-31"
+        return (d, e.get("title", ""))
 
-    # ACTIVIDADES
-    if activities_url:
-        act_links = _collect_detail_links(activities_url, "/actividades/")
-        ok = 0
-        for link in act_links:
-            ev = _scrape_detail(link, institution_id, institution_name, "activity", tickets_url)
-            if ev:
-                events.append(ev); ok += 1
-        print(f"[mpm] actividades: {ok}")
+    tmp_map = merge_events(existing_map, scraped)
+    tmp_map = merge_events(tmp_map, manual_list)
+    tmp_map = {k: v for k, v in tmp_map.items() if v.get("institution_id") in allowed_ids}
 
-    return events
+    out_list = sorted(list(tmp_map.values()), key=event_sort_key)
+    save_json_local(build_path, out_list)
+    print(f"[collect] guardados: {len(out_list)} → build/events.json")
+
+if __name__ == "__main__":
+    main()
