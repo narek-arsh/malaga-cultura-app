@@ -12,9 +12,8 @@ def parse_date_range(text: str) -> Tuple[Optional[date], Optional[date]]:
     Devuelve (inicio, fin) si detecta un rango en español.
     Soporta:
       - 10/10/2025 - 17/11/2025  (o sin año en alguno)
-      - Del 01 de abril al 14 de septiembre de 2025
-      - Del 16 de julio de 2025 al 13 de octubre de 2025
-      - Del 01 al 12 de septiembre de 2025
+      - Del 16 de julio [de 2025] al 13 de octubre [de 2025]
+      - Del 01 al 12 de septiembre [de 2025]
     """
     if not text:
         return (None, None)
