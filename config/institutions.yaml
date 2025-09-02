@@ -2,7 +2,7 @@ timezone: "Europe/Madrid"
 
 institutions:
   - id: "mpm"
-    enabled: true
+    enabled: 1
     name: "Museo Picasso Málaga"
     type: "Museo de arte"
     base_url: "https://www.museopicassomalaga.org/"
@@ -13,11 +13,11 @@ institutions:
     rss_activities_url: ""
 
   - id: "thyssen"
-    enabled: true
+    enabled: 0
     name: "Museo Carmen Thyssen Málaga"
     type: "Museo de arte"
     base_url: "https://carmenthyssenmalaga.org/"
-    tickets_url: "https://www.carmenthyssenmalaga.org/horarios-tarifas-ubicacion"
+    tickets_url: "https://www.museopicassomalaga.org/horarios-tarifas-ubicacion"  # <- no importa si está desactivado
     exhibitions_url: "https://carmenthyssenmalaga.org/exposiciones-temporales"
     activities_url: "https://carmenthyssenmalaga.org/actividades"
     rss_exhibitions_url: ""
