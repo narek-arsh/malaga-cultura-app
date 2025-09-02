@@ -36,29 +36,36 @@ def main():
         cfg = yaml.safe_load(f)
 
     institutions = cfg.get("institutions", [])
-    # Solo dejamos activadas las que estén en el YAML y enabled != false
     allowed_ids = {i["id"] for i in institutions if i.get("enabled", True)}
+    print(f"[collect] instituciones activas: {sorted(list(allowed_ids))}")
 
     all_events: List[Event] = []
 
     for inst in institutions:
         name = inst["name"]
         iid = inst["id"]
+        if iid not in allowed_ids:
+            continue
         tickets_url = inst.get("tickets_url")
         base_url = inst.get("base_url") or ""
         ex_url = inst.get("exhibitions_url") or ""
         ac_url = inst.get("activities_url") or ""
 
         if iid == "mpm":
+            prev = len(all_events)
             all_events += scrape_mpm(base_url, ex_url, ac_url, tickets_url, iid, name)
+            print(f"[collect] mpm añadidos: {len(all_events)-prev}")
         elif iid == "thyssen":
+            prev = len(all_events)
             all_events += scrape_thyssen(ex_url, ac_url, tickets_url, iid, name)
-        # No hay más scrapers aquí a propósito
+            print(f"[collect] thyssen añadidos: {len(all_events)-prev}")
 
     scraped = [e.to_dict() for e in all_events]
+    print(f"[collect] total scraped: {len(scraped)}")
 
     manual_path = os.path.join(ROOT, "data", "manual.json")
     manual_list = load_json(manual_path, [])
+    print(f"[collect] manuales: {len(manual_list)}")
 
     build_path = os.path.join(ROOT, "build", "events.json")
     existing_list = load_json(build_path, [])
@@ -71,13 +78,12 @@ def main():
     tmp_map = merge_events(existing_map, scraped)
     tmp_map = merge_events(tmp_map, manual_list)
 
-    # PRUNE: elimina cualquier evento de instituciones no permitidas
+    # Poda de sedes no activas (por si hubiera restos)
     tmp_map = {k: v for k, v in tmp_map.items() if v.get("institution_id") in allowed_ids}
 
     out_list = sorted(list(tmp_map.values()), key=event_sort_key)
-
     save_json_local(build_path, out_list)
-    print(f"Saved {len(out_list)} events to build/events.json")
+    print(f"[collect] guardados: {len(out_list)} → build/events.json")
 
 if __name__ == "__main__":
     main()
