@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from typing import List, Optional, Tuple, Set
 from urllib.parse import urljoin, urlparse
 from mc_utils.model import Event, make_event_id, now_iso
-from .common import pick_title, pick_description, pick_image
+from sources.common import pick_title, pick_description, pick_image
 from mc_utils.dates import parse_date_range, parse_spanish_date
 
 UA = {
@@ -23,7 +23,7 @@ def _fetch(url: str) -> Optional[str]:
     return None
 
 def _collect_detail_links(list_url: str, must_contain: str) -> List[str]:
-    """Recoge enlaces internos de un listado, filtrando por subruta (p.ej. '/exposiciones/' o '/actividades/')."""
+    """Recoge enlaces internos del listado, filtrando por subruta (p.ej. '/exposiciones/' o '/actividades/')."""
     html = _fetch(list_url)
     if not html:
         print(f"[mpm:list] vacío: {list_url}")
@@ -46,7 +46,7 @@ def _collect_detail_links(list_url: str, must_contain: str) -> List[str]:
     return out
 
 def _parse_dates(soup: BeautifulSoup) -> Tuple[Optional[str], Optional[str]]:
-    """Intenta fechas por <time>, luego por texto global con nuestros parsers en español."""
+    """Intenta fechas por <time>, luego por texto global (rango español o dd/mm/yyyy)."""
     # 1) <time datetime="YYYY-MM-DD">
     dates = []
     for t in soup.find_all("time"):
@@ -63,7 +63,7 @@ def _parse_dates(soup: BeautifulSoup) -> Tuple[Optional[str], Optional[str]]:
     if len(dates) == 1:
         return dates[0], None
 
-    # 2) Texto global (soporta: "del 01 de abril al 14 de septiembre de 2025", "23/05/2025 - 12/12/2025", etc.)
+    # 2) Texto global (del 16 de julio al 13 de octubre de 2025, 23/05/2025 - 12/12/2025, etc.)
     txt = soup.get_text(" ", strip=True)
     s, e = parse_date_range(txt)
     if s and e:
@@ -105,7 +105,7 @@ def _scrape_detail(url: str, institution_id: str, institution_name: str, event_t
             first_seen=now, last_seen=now, last_changed=now, source=url
         )
     else:
-        # Si no hay horas claras, dejamos todo-día (00:00–23:59) en el rango detectado.
+        # Si no hay horas, dejamos 00:00–23:59 del rango detectado.
         dt_start = f"{ds}T00:00:00+02:00" if ds else None
         dt_end   = f"{de}T23:59:00+02:00" if de else None
         return Event(
