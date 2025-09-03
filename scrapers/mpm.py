@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 Scraper para Museo Picasso Málaga (MPM)
-- Exposiciones: se extraen desde el listado (fechas DD/MM/YYYY, título, imagen de background).
-- Actividades: se extraen desde el listado de tarjetas (el <a> incluye rango de fechas en español + <h2> título).
+- Exposiciones: se extraen desde el listado (fechas DD/MM/YYYY, título, imagen).
+- Actividades: se extraen desde las tarjetas del listado (rango de fechas en ES + <h2>).
+Si el runner no ve actividades, se vuelca el HTML a data/debug_mpm_activities.html.
 """
 from __future__ import annotations
-import re, hashlib
+import os, re, hashlib
 from urllib.parse import urljoin
 from typing import List, Dict, Any, Optional
 import requests
@@ -13,7 +14,12 @@ from bs4 import BeautifulSoup
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; MalagaCulturalBot/1.0; +https://example.com)",
-    "Accept-Language": "es-ES,es;q=0.9,en;q=0.8"
+    "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
+    "Referer": "https://www.museopicassomalaga.org/actividades",
+    "Connection": "keep-alive",
 }
 BASE = "https://www.museopicassomalaga.org"
 
@@ -30,7 +36,7 @@ def _abs(url: str) -> str:
     return url if url.startswith("http") else urljoin(BASE, url)
 
 def _get(url: str) -> BeautifulSoup:
-    r = requests.get(url, headers=HEADERS, timeout=25)
+    r = requests.get(url, headers=HEADERS, timeout=25, allow_redirects=True)
     r.raise_for_status()
     return BeautifulSoup(r.text, "lxml")
 
@@ -39,87 +45,59 @@ def _norm(s: str) -> str:
     s = unicodedata.normalize('NFKD', s)
     s = "".join([c for c in s if not unicodedata.combining(c)])
     s = s.replace('\xa0',' ').replace('�','-')
-    s = re.sub(r'[–—]+', '-', s)          # guiones largos -> '-'
-    s = re.sub(r'-{2,}', '-', s)          # '——' -> '-'
-    s = re.sub(r'\s*-\s*', '-', s)        # espacios alrededor del guion
+    s = re.sub(r'[–—]+', '-', s)   # guiones largos -> '-'
+    s = re.sub(r'-{2,}', '-', s)   # '——' -> '-'
+    s = re.sub(r'\s*-\s*', '-', s) # espacios alrededor del guion
     s = re.sub(r'\s+', ' ', s).strip()
     return s.lower()
 
 def _parse_spanish_date_range(text: str):
-    """
-    Devuelve (date_start, date_end, remainder_text) en YYYY-MM-DD.
-    Soporta:
-      - '16 septiembre 2025 – 14 julio 2026 …'
-      - '18 – 19 septiembre 2025 …'
-      - '1, 8, 15, 22 y 29 octubre 2025 …'
-      - 'junio – diciembre 2025 …'
-      - '4 octubre 2025 …'
-    """
+    """Devuelve (date_start, date_end, remainder_text) en YYYY-MM-DD."""
     t = _norm(text)
-
     # dd mes yyyy - dd mes yyyy
-    pat1 = re.compile(
-        r'(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})'
-        r'-(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})'
-    )
-    m = pat1.search(t)
+    m = re.search(r'(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})-(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})', t)
     if m:
         d1, mon1, y1, d2, mon2, y2 = m.groups()
         ds=f"{y1}-{MONTHS[mon1]:02d}-{int(d1):02d}"
         de=f"{y2}-{MONTHS[mon2]:02d}-{int(d2):02d}"
-        rest = t[m.end():].strip()
-        return ds, de, rest
-
+        return ds, de, t[m.end():].strip()
     # dd - dd mes yyyy
-    pat2 = re.compile(r'(\d{1,2})-(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})')
-    m = pat2.search(t)
+    m = re.search(r'(\d{1,2})-(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})', t)
     if m:
         d1, d2, mon, y = m.groups()
         ds=f"{y}-{MONTHS[mon]:02d}-{int(d1):02d}"
         de=f"{y}-{MONTHS[mon]:02d}-{int(d2):02d}"
-        rest = t[m.end():].strip()
-        return ds, de, rest
-
+        return ds, de, t[m.end():].strip()
     # mes - mes yyyy (aprox 1..28)
-    pat3 = re.compile(r'(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)-(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})')
-    m = pat3.search(t)
+    m = re.search(r'(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)-(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})', t)
     if m:
         mon1, mon2, y = m.groups()
         ds=f"{y}-{MONTHS[mon1]:02d}-01"
         de=f"{y}-{MONTHS[mon2]:02d}-28"
-        rest = t[m.end():].strip()
-        return ds, de, rest
-
+        return ds, de, t[m.end():].strip()
     # 1, 8, 15, 22 y 29 octubre 2025
-    pat5 = re.compile(r'(\d{1,2}(?:\s*,\s*\d{1,2})*(?:\s*y\s*\d{1,2})?)\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})')
-    m = pat5.search(t)
+    m = re.search(r'(\d{1,2}(?:\s*,\s*\d{1,2})*(?:\s*y\s*\d{1,2})?)\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})', t)
     if m:
         days_list, mon, y = m.groups()
         days = [int(x.strip()) for x in re.split(r'[,\sy]+', days_list) if x.strip().isdigit()]
         if days:
             ds=f"{y}-{MONTHS[mon]:02d}-{min(days):02d}"
             de=f"{y}-{MONTHS[mon]:02d}-{max(days):02d}"
-            rest = t[m.end():].strip()
-            return ds, de, rest
-
+            return ds, de, t[m.end():].strip()
     # dd mes yyyy (día único)
-    pat4 = re.compile(r'(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})')
-    m = pat4.search(t)
+    m = re.search(r'(\d{1,2})\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+(\d{4})', t)
     if m:
         d, mon, y = m.groups()
         ds=f"{y}-{MONTHS[mon]:02d}-{int(d):02d}"
-        rest = t[m.end():].strip()
-        return ds, ds, rest
-
+        return ds, ds, t[m.end():].strip()
     return None
 
 def _clean_title_from_rest(rest: str) -> Optional[str]:
     if not rest:
         return None
-    tail = rest.strip(" -·,;")
-    words = tail.split()
+    words = rest.strip(" -·,;").split()
     if not words:
-        return tail
+        return None
     last = words[-1].lower()
     if last in CATEGORY_WORDS:
         words = words[:-1]
@@ -130,11 +108,10 @@ def collect(config: dict) -> List[Dict[str, Any]]:
     institution_name = "Museo Picasso Málaga"
     events: List[Dict[str, Any]] = []
 
-    # ── Exposiciones (listado) ────────────────────────────────────────────────
+    # ── Exposiciones ──────────────────────────────────────────────────────────
     try:
         soup = _get(_abs(config["endpoints"]["exhibitions"]))
         for info in soup.select('.exhibitionCurrentFuture-info'):
-            # Fechas DD/MM/YYYY en spans .exhibitionCurrentFuture-date
             dates = info.select('.exhibitionCurrentFuture-date')
             if not dates:
                 continue
@@ -150,17 +127,12 @@ def collect(config: dict) -> List[Dict[str, Any]]:
             except Exception:
                 continue
 
-            # Título
             tnode = info.select_one('p.h1, .h1')
             title = tnode.get_text(" ", strip=True) if tnode else "Exposición"
 
-            # Link cercano a /exposiciones/<slug>
-            a = info.find('a', href=re.compile(r'/exposiciones/'))
-            if not a:
-                a = info.find_previous('a', href=re.compile(r'/exposiciones/'))
+            a = info.find('a', href=re.compile(r'/exposiciones/')) or info.find_previous('a', href=re.compile(r'/exposiciones/'))
             link = _abs(a['href']) if a and a.get('href') else _abs(config["endpoints"]["exhibitions"])
 
-            # Imagen desde bloque background vecino
             bg = info.find_previous(class_=re.compile('exhibitionCurrentFuture-background'))
             image_url = None
             if bg:
@@ -190,30 +162,30 @@ def collect(config: dict) -> List[Dict[str, Any]]:
                 "all_day": True,
                 "source": "scraper",
             })
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"[WARN] mpm exhibitions failed: {e}")
 
-    # ── Actividades (tarjetas en listado) ─────────────────────────────────────
+    # ── Actividades ───────────────────────────────────────────────────────────
     try:
         soup = _get(_abs(config["endpoints"]["activities"]))
-        # contenedor típico en tu HTML
-        container = soup.select_one(".color-card-container.three-columns")
-        if container:
-            cards = container.select("a.colorCard[href*='/actividades/']")
-        else:
+        # 1) Selector típico (tu HTML)
+        cards = soup.select(".color-card-container.three-columns a.colorCard[href*='/actividades/']")
+        # 2) Fallbacks por si el contenedor cambia
+        if not cards:
             cards = soup.select("a.colorCard[href*='/actividades/']")
+        if not cards:
+            cards = [a for a in soup.find_all('a', href=True) if '/actividades/' in a['href'] and not a['href'].rstrip('/').endswith('/actividades')]
 
         seen = set()
+        found = 0
         for a in cards:
             href = a.get('href','')
-            if "/actividades/" not in href or href.rstrip('/').endswith('/actividades'):
-                continue
             link = _abs(href.split('#')[0])
             if link in seen:
                 continue
             seen.add(link)
 
-            # Prefiere <p> con fechas + <h2> título
+            # Fechas (primer <p> con nombres de mes) + título (<h2> o <h3>)
             p_dates = None
             for p in a.find_all("p"):
                 txt = p.get_text(" ", strip=True)
@@ -225,7 +197,6 @@ def collect(config: dict) -> List[Dict[str, Any]]:
             base_text = p_dates or a.get_text(" ", strip=True)
             parsed = _parse_spanish_date_range(base_text)
             if not parsed:
-                # si no podemos parsear fechas del listado, saltamos
                 continue
             ds, de, rest = parsed
             if not title:
@@ -254,7 +225,23 @@ def collect(config: dict) -> List[Dict[str, Any]]:
                 "status": "scheduled",
                 "source": "scraper",
             })
-    except Exception:
-        pass
+            found += 1
+
+        if found == 0:
+            # DEBUG: volcar HTML y anclas para ver qué recibe el runner
+            try:
+                data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
+                os.makedirs(data_dir, exist_ok=True)
+                with open(os.path.join(data_dir, "debug_mpm_activities.html"), "w", encoding="utf-8") as f:
+                    f.write(str(soup))
+                anchors = [a.get('href','') for a in soup.find_all('a', href=True) if '/actividades/' in a.get('href','')]
+                with open(os.path.join(data_dir, "debug_mpm_anchors.txt"), "w", encoding="utf-8") as f:
+                    f.write("\n".join(anchors))
+                print("[DBG] mpm: 0 activities -> wrote data/debug_mpm_activities.html and debug_mpm_anchors.txt")
+            except Exception as _e:
+                print(f"[DBG] mpm: failed to write debug files: {_e}")
+
+    except Exception as e:
+        print(f"[WARN] mpm activities failed: {e}")
 
     return events
