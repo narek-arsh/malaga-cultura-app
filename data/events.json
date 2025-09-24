@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-09-23T04:38:26.466650+00:00",
+    "last_seen_at": "2025-09-24T04:38:48.750087+00:00",
     "schema_version": "1"
   },
   {
@@ -32,7 +32,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-09-23T04:38:26.466679+00:00",
+    "last_seen_at": "2025-09-24T04:38:48.750116+00:00",
     "schema_version": "1"
   },
   {
@@ -50,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-09-23T04:38:26.466692+00:00",
+    "last_seen_at": "2025-09-24T04:38:48.750147+00:00",
     "schema_version": "1"
   },
   {
@@ -67,7 +67,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2025-09-23T04:38:26.466714+00:00",
+    "last_seen_at": "2025-09-24T04:38:48.750167+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -86,7 +86,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-09-23T04:38:26.466703+00:00",
+    "last_seen_at": "2025-09-24T04:38:48.750157+00:00",
     "schema_version": "1"
   }
 ]
