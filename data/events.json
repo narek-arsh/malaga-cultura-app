@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-11-13T04:16:09.522693+00:00",
+    "last_seen_at": "2025-11-14T04:14:23.626250+00:00",
     "schema_version": "1"
   },
   {
@@ -32,7 +32,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-11-13T04:16:09.522736+00:00",
+    "last_seen_at": "2025-11-14T04:14:23.626280+00:00",
     "schema_version": "1"
   },
   {
@@ -49,16 +49,16 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2025-11-13T04:16:09.522761+00:00",
+    "last_seen_at": "2025-11-14T04:14:23.626303+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
   {
     "id": "6b01036312b880e239d6008db8fdd2206b72aa81",
     "type": "exhibition",
-    "title": "Picasso",
+    "title": "Picasso. Memoria y Deseo",
     "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_06ed2711_e617_7c0b_aaf0_feef2daf783b_EDIT_da3ae1a64f.jpg",
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_MPM_Exposicion_Picasso_Memoria_y_Deseo_11_1b6883d872.jpg",
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
@@ -68,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-11-13T04:16:09.522749+00:00",
+    "last_seen_at": "2025-11-14T04:14:23.626293+00:00",
     "schema_version": "1"
   }
 ]
