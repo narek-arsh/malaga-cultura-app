@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-11-17T04:17:06.155497+00:00",
+    "last_seen_at": "2025-11-18T04:14:13.378997+00:00",
     "schema_version": "1"
   },
   {
@@ -32,7 +32,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-11-17T04:17:06.155525+00:00",
+    "last_seen_at": "2025-11-18T04:14:13.379023+00:00",
     "schema_version": "1"
   },
   {
@@ -49,7 +49,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2025-11-17T04:17:06.155547+00:00",
+    "last_seen_at": "2025-11-18T04:14:13.379056+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -68,7 +68,25 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-11-17T04:17:06.155537+00:00",
+    "last_seen_at": "2025-11-18T04:14:13.379036+00:00",
+    "schema_version": "1"
+  },
+  {
+    "id": "329ccd1fbdbc365832f4a7f3e373a497908ec04e",
+    "type": "exhibition",
+    "title": "Reflejos",
+    "description": null,
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_Expo_Picassox_Barcelo_BIG_9f61e0bf6a.jpg",
+    "institution_id": "mpm",
+    "institution_name": "Museo Picasso Málaga",
+    "city": "Málaga",
+    "url": "https://www.museopicassomalaga.org/exposiciones/reflejos-picasso-barcelo",
+    "date_start": "2025-12-16",
+    "date_end": "2026-03-15",
+    "status": "scheduled",
+    "all_day": true,
+    "source": "scraper",
+    "last_seen_at": "2025-11-18T04:14:13.379046+00:00",
     "schema_version": "1"
   }
 ]
