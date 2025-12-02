@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-01T04:40:33.113962+00:00",
+    "last_seen_at": "2025-12-02T04:20:58.536546+00:00",
     "schema_version": "1"
   },
   {
@@ -32,7 +32,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-01T04:40:33.113989+00:00",
+    "last_seen_at": "2025-12-02T04:20:58.536572+00:00",
     "schema_version": "1"
   },
   {
@@ -49,7 +49,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2025-12-01T04:40:33.114034+00:00",
+    "last_seen_at": "2025-12-02T04:20:58.536615+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -68,13 +68,13 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-01T04:40:33.114002+00:00",
+    "last_seen_at": "2025-12-02T04:20:58.536583+00:00",
     "schema_version": "1"
   },
   {
     "id": "329ccd1fbdbc365832f4a7f3e373a497908ec04e",
     "type": "exhibition",
-    "title": "Reflejos",
+    "title": "Reflejos. Picasso x Barceló",
     "description": null,
     "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_Expo_Picassox_Barcelo_BIG_9f61e0bf6a.jpg",
     "institution_id": "mpm",
@@ -86,7 +86,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-01T04:40:33.114015+00:00",
+    "last_seen_at": "2025-12-02T04:20:58.536594+00:00",
     "schema_version": "1"
   },
   {
@@ -104,7 +104,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-01T04:40:33.114025+00:00",
+    "last_seen_at": "2025-12-02T04:20:58.536604+00:00",
     "schema_version": "1"
   }
 ]
