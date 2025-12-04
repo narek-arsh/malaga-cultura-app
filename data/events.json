@@ -4,7 +4,7 @@
     "type": "exhibition",
     "title": "Pablo Picasso: estructuras de la invención",
     "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_2025_Expo_estructuras_portada_96410f2e83.jpg",
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_Expo_Estructuras_Invencion_eb739f2131.jpg",
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-03T04:19:22.759436+00:00",
+    "last_seen_at": "2025-12-04T04:20:54.179690+00:00",
     "schema_version": "1"
   },
   {
@@ -32,7 +32,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-03T04:19:22.759463+00:00",
+    "last_seen_at": "2025-12-04T04:20:54.179717+00:00",
     "schema_version": "1"
   },
   {
@@ -49,7 +49,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2025-12-03T04:19:22.759504+00:00",
+    "last_seen_at": "2025-12-04T04:20:54.179759+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -68,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-03T04:19:22.759475+00:00",
+    "last_seen_at": "2025-12-04T04:20:54.179729+00:00",
     "schema_version": "1"
   },
   {
@@ -86,7 +86,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-03T04:19:22.759485+00:00",
+    "last_seen_at": "2025-12-04T04:20:54.179740+00:00",
     "schema_version": "1"
   },
   {
@@ -104,7 +104,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-03T04:19:22.759495+00:00",
+    "last_seen_at": "2025-12-04T04:20:54.179749+00:00",
     "schema_version": "1"
   }
 ]
