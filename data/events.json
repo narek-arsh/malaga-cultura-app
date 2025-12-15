@@ -14,25 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-14T04:28:01.617224+00:00",
-    "schema_version": "1"
-  },
-  {
-    "id": "f45b4419ec24a9bb25671c4fb2f4e9d80a77ceca",
-    "type": "exhibition",
-    "title": "Farah Atassi",
-    "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_2025_Expo_Farah_Atassi_portada_nueva_b52eb508b0.jpg",
-    "institution_id": "mpm",
-    "institution_name": "Museo Picasso Málaga",
-    "city": "Málaga",
-    "url": "https://www.museopicassomalaga.org/exposiciones/farah-atassi",
-    "date_start": "2025-05-23",
-    "date_end": "2025-12-14",
-    "status": "scheduled",
-    "all_day": true,
-    "source": "scraper",
-    "last_seen_at": "2025-12-14T04:28:01.617260+00:00",
+    "last_seen_at": "2025-12-15T04:31:35.461106+00:00",
     "schema_version": "1"
   },
   {
@@ -49,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2025-12-14T04:28:01.617301+00:00",
+    "last_seen_at": "2025-12-15T04:31:35.461169+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -68,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-14T04:28:01.617272+00:00",
+    "last_seen_at": "2025-12-15T04:31:35.461137+00:00",
     "schema_version": "1"
   },
   {
@@ -86,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-14T04:28:01.617282+00:00",
+    "last_seen_at": "2025-12-15T04:31:35.461150+00:00",
     "schema_version": "1"
   },
   {
@@ -104,7 +86,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2025-12-14T04:28:01.617292+00:00",
+    "last_seen_at": "2025-12-15T04:31:35.461160+00:00",
     "schema_version": "1"
   }
 ]
