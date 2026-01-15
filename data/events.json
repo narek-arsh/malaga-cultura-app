@@ -4,7 +4,7 @@
     "type": "exhibition",
     "title": "Pablo Picasso: estructuras de la invención",
     "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_Expo_Estructuras_Invencion_eb739f2131.jpg",
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_Expo_Estructuras_Invencion_eb739f2131.jpg?updatedAt=1764777416410",
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-14T04:38:25.735232+00:00",
+    "last_seen_at": "2026-01-15T04:32:09.719502+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-01-14T04:38:25.735291+00:00",
+    "last_seen_at": "2026-01-15T04:32:09.719563+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -40,7 +40,7 @@
     "type": "exhibition",
     "title": "Picasso Memoria y Deseo",
     "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_MPM_Exposicion_Picasso_Memoria_y_Deseo_11_b335af1d0c.jpg",
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_MPM_Exposicion_Picasso_Memoria_y_Deseo_11_b335af1d0c.jpg?updatedAt=1763119403536",
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
@@ -50,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-14T04:38:25.735259+00:00",
+    "last_seen_at": "2026-01-15T04:32:09.719530+00:00",
     "schema_version": "1"
   },
   {
@@ -58,7 +58,7 @@
     "type": "exhibition",
     "title": "Reflejos. Picasso x Barceló",
     "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_Expo_Picassox_Barcelo_BIG_9f61e0bf6a.jpg",
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_Expo_Picassox_Barcelo_BIG_9f61e0bf6a.jpg?updatedAt=1763390625080",
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
@@ -68,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-14T04:38:25.735271+00:00",
+    "last_seen_at": "2026-01-15T04:32:09.719542+00:00",
     "schema_version": "1"
   },
   {
@@ -76,7 +76,7 @@
     "type": "exhibition",
     "title": "Elena Asins. «Antígona»",
     "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_Expo_Elena_Asins_ce7629332f.jpg",
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/large_Expo_Elena_Asins_ce7629332f.jpg?updatedAt=1764409044863",
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
@@ -86,7 +86,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-14T04:38:25.735281+00:00",
+    "last_seen_at": "2026-01-15T04:32:09.719552+00:00",
     "schema_version": "1"
   }
 ]
