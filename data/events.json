@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-23T04:34:01.443246+00:00",
+    "last_seen_at": "2026-01-24T04:26:38.845546+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-01-23T04:34:01.443295+00:00",
+    "last_seen_at": "2026-01-24T04:26:38.845611+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -50,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-23T04:34:01.443273+00:00",
+    "last_seen_at": "2026-01-24T04:26:38.845589+00:00",
     "schema_version": "1"
   },
   {
@@ -58,7 +58,7 @@
     "type": "exhibition",
     "title": "Reflejos. Picasso x Barceló",
     "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Picassox_Barcelo_BIG_f4e42ee138.jpg?updatedAt=1768471982714",
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Picassso_X_Barcelo_5a7244b72c.jpg?updatedAt=1769157661530",
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
@@ -68,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-23T04:34:01.443285+00:00",
+    "last_seen_at": "2026-01-24T04:26:38.845601+00:00",
     "schema_version": "1"
   }
 ]
