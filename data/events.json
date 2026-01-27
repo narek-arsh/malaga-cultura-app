@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-26T04:46:47.908471+00:00",
+    "last_seen_at": "2026-01-27T04:38:20.110973+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-01-26T04:46:47.908524+00:00",
+    "last_seen_at": "2026-01-27T04:38:20.111049+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -50,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-26T04:46:47.908501+00:00",
+    "last_seen_at": "2026-01-27T04:38:20.110999+00:00",
     "schema_version": "1"
   },
   {
@@ -68,7 +68,25 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-26T04:46:47.908513+00:00",
+    "last_seen_at": "2026-01-27T04:38:20.111011+00:00",
+    "schema_version": "1"
+  },
+  {
+    "id": "a045295dc1d261a99f87bd0ed30cd053f796bbb7",
+    "type": "exhibition",
+    "title": "Elena Asins. «Antígona»",
+    "description": null,
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Elena_Asins_da2b351888.jpg?updatedAt=1768471982594",
+    "institution_id": "mpm",
+    "institution_name": "Museo Picasso Málaga",
+    "city": "Málaga",
+    "url": "https://www.museopicassomalaga.org/exposiciones/elena-asins-antigona",
+    "date_start": "2026-01-30",
+    "date_end": "2026-05-03",
+    "status": "scheduled",
+    "all_day": true,
+    "source": "scraper",
+    "last_seen_at": "2026-01-27T04:38:20.111038+00:00",
     "schema_version": "1"
   }
 ]
