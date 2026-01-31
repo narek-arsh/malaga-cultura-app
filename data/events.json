@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-30T05:02:49.248768+00:00",
+    "last_seen_at": "2026-01-31T04:55:34.644428+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-01-30T05:02:49.248829+00:00",
+    "last_seen_at": "2026-01-31T04:55:34.644496+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -50,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-30T05:02:49.248796+00:00",
+    "last_seen_at": "2026-01-31T04:55:34.644464+00:00",
     "schema_version": "1"
   },
   {
@@ -58,7 +58,7 @@
     "type": "exhibition",
     "title": "Reflejos. Picasso x Barceló",
     "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Picassox_Barcelo_BIG_f4e42ee138.jpg?updatedAt=1768471982714",
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_BARCELOXPICASSO_57_portada_e456ab2a38.jpg?updatedAt=1769760536173",
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
@@ -68,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-30T05:02:49.248809+00:00",
+    "last_seen_at": "2026-01-31T04:55:34.644475+00:00",
     "schema_version": "1"
   },
   {
@@ -76,7 +76,7 @@
     "type": "exhibition",
     "title": "Elena Asins. «Antígona»",
     "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Elena_Asins_da2b351888.jpg?updatedAt=1768471982594",
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Asins_portada01_de64278dbf.jpg?updatedAt=1769772372765",
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
@@ -86,7 +86,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-01-30T05:02:49.248819+00:00",
+    "last_seen_at": "2026-01-31T04:55:34.644486+00:00",
     "schema_version": "1"
   }
 ]
