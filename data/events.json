@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-14T05:05:33.296927+00:00",
+    "last_seen_at": "2026-03-15T05:23:41.631417+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-03-14T05:05:33.296985+00:00",
+    "last_seen_at": "2026-03-15T05:23:41.631486+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -50,11 +50,11 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-14T05:05:33.296954+00:00",
+    "last_seen_at": "2026-03-15T05:23:41.631444+00:00",
     "schema_version": "1"
   },
   {
-    "id": "329ccd1fbdbc365832f4a7f3e373a497908ec04e",
+    "id": "4b961ec1f669e600dc2001977b6faaf1290e913e",
     "type": "exhibition",
     "title": "Reflejos. Picasso x Barceló",
     "description": null,
@@ -62,13 +62,13 @@
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
-    "url": "https://www.museopicassomalaga.org/exposiciones/reflejos-picasso-barcelo",
+    "url": "https://www.museopicassomalaga.org/exposiciones/reflejos-picasso-barcelo-almeria",
     "date_start": "2025-12-16",
     "date_end": "2026-03-15",
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-14T05:05:33.296965+00:00",
+    "last_seen_at": "2026-03-15T05:23:41.631456+00:00",
     "schema_version": "1"
   },
   {
@@ -86,7 +86,25 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-14T05:05:33.296975+00:00",
+    "last_seen_at": "2026-03-15T05:23:41.631466+00:00",
+    "schema_version": "1"
+  },
+  {
+    "id": "d8c92626162769a687fd6a8c334353ef58b07cdb",
+    "type": "exhibition",
+    "title": "Reflejos.  Picasso x Barceló",
+    "description": null,
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Picassox_Barcelo_BIG_f4e42ee138.jpg?updatedAt=1768471982714",
+    "institution_id": "mpm",
+    "institution_name": "Museo Picasso Málaga",
+    "city": "Málaga",
+    "url": "https://www.museopicassomalaga.org/exposiciones/reflejos-picasso-x-barcelo-cadiz",
+    "date_start": "2026-03-26",
+    "date_end": "2026-06-28",
+    "status": "scheduled",
+    "all_day": true,
+    "source": "scraper",
+    "last_seen_at": "2026-03-15T05:23:41.631476+00:00",
     "schema_version": "1"
   }
 ]
