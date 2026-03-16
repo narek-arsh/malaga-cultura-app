@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-15T05:23:41.631417+00:00",
+    "last_seen_at": "2026-03-16T05:44:38.666990+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-03-15T05:23:41.631486+00:00",
+    "last_seen_at": "2026-03-16T05:44:38.667066+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -50,25 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-15T05:23:41.631444+00:00",
-    "schema_version": "1"
-  },
-  {
-    "id": "4b961ec1f669e600dc2001977b6faaf1290e913e",
-    "type": "exhibition",
-    "title": "Reflejos. Picasso x Barceló",
-    "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_BARCELOXPICASSO_57_portada_e456ab2a38.jpg?updatedAt=1769760536173",
-    "institution_id": "mpm",
-    "institution_name": "Museo Picasso Málaga",
-    "city": "Málaga",
-    "url": "https://www.museopicassomalaga.org/exposiciones/reflejos-picasso-barcelo-almeria",
-    "date_start": "2025-12-16",
-    "date_end": "2026-03-15",
-    "status": "scheduled",
-    "all_day": true,
-    "source": "scraper",
-    "last_seen_at": "2026-03-15T05:23:41.631456+00:00",
+    "last_seen_at": "2026-03-16T05:44:38.667017+00:00",
     "schema_version": "1"
   },
   {
@@ -86,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-15T05:23:41.631466+00:00",
+    "last_seen_at": "2026-03-16T05:44:38.667029+00:00",
     "schema_version": "1"
   },
   {
@@ -104,7 +86,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-15T05:23:41.631476+00:00",
+    "last_seen_at": "2026-03-16T05:44:38.667056+00:00",
     "schema_version": "1"
   }
 ]
