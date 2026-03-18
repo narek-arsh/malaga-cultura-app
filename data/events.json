@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-17T05:16:37.876870+00:00",
+    "last_seen_at": "2026-03-18T05:21:15.113058+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-03-17T05:16:37.876937+00:00",
+    "last_seen_at": "2026-03-18T05:21:15.113120+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -50,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-17T05:16:37.876905+00:00",
+    "last_seen_at": "2026-03-18T05:21:15.113082+00:00",
     "schema_version": "1"
   },
   {
@@ -68,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-17T05:16:37.876917+00:00",
+    "last_seen_at": "2026-03-18T05:21:15.113092+00:00",
     "schema_version": "1"
   },
   {
@@ -86,7 +86,25 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-17T05:16:37.876927+00:00",
+    "last_seen_at": "2026-03-18T05:21:15.113101+00:00",
+    "schema_version": "1"
+  },
+  {
+    "id": "a5f7da315454296ed04c1fc1a5ef9af60bc2ad01",
+    "type": "exhibition",
+    "title": "Joana Vasconcelos",
+    "description": null,
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Vasconcelos_Gestalt2017_AJV_F_01_8e2af7ccf1.jpg?updatedAt=1773731899830",
+    "institution_id": "mpm",
+    "institution_name": "Museo Picasso Málaga",
+    "city": "Málaga",
+    "url": "https://www.museopicassomalaga.org/exposiciones/joana-vasconcelos-transfiguracion",
+    "date_start": "2026-05-29",
+    "date_end": "2026-09-27",
+    "status": "scheduled",
+    "all_day": true,
+    "source": "scraper",
+    "last_seen_at": "2026-03-18T05:21:15.113110+00:00",
     "schema_version": "1"
   }
 ]
