@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-18T05:21:15.113058+00:00",
+    "last_seen_at": "2026-03-19T05:17:58.211954+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-03-18T05:21:15.113120+00:00",
+    "last_seen_at": "2026-03-19T05:17:58.212021+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -50,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-18T05:21:15.113082+00:00",
+    "last_seen_at": "2026-03-19T05:17:58.211981+00:00",
     "schema_version": "1"
   },
   {
@@ -68,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-18T05:21:15.113092+00:00",
+    "last_seen_at": "2026-03-19T05:17:58.211992+00:00",
     "schema_version": "1"
   },
   {
@@ -86,7 +86,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-18T05:21:15.113101+00:00",
+    "last_seen_at": "2026-03-19T05:17:58.212002+00:00",
     "schema_version": "1"
   },
   {
@@ -104,7 +104,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-03-18T05:21:15.113110+00:00",
+    "last_seen_at": "2026-03-19T05:17:58.212012+00:00",
     "schema_version": "1"
   }
 ]
