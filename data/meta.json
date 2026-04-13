@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-12T05:48:56.424536+00:00",
+  "generated_at": "2026-04-13T06:07:52.380889+00:00",
   "active_institutions": 1,
   "counts": {
-    "total": 6,
-    "scraped": 5,
+    "total": 5,
+    "scraped": 4,
     "manual": 1
   }
 }

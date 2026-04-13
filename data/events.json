@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-04-12T05:48:56.424186+00:00",
+    "last_seen_at": "2026-04-13T06:07:52.380611+00:00",
     "schema_version": "1"
   },
   {
@@ -31,27 +31,9 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-04-12T05:48:56.424258+00:00",
+    "last_seen_at": "2026-04-13T06:07:52.380673+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
-  },
-  {
-    "id": "6b01036312b880e239d6008db8fdd2206b72aa81",
-    "type": "exhibition",
-    "title": "Picasso Memoria y Deseo",
-    "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_MPM_Exposicion_Picasso_Memoria_y_Deseo_68dc16aecc.jpg?updatedAt=1768471980245",
-    "institution_id": "mpm",
-    "institution_name": "Museo Picasso Málaga",
-    "city": "Málaga",
-    "url": "https://www.museopicassomalaga.org/exposiciones/picasso-memoria-deseo",
-    "date_start": "2025-11-14",
-    "date_end": "2026-04-12",
-    "status": "scheduled",
-    "all_day": true,
-    "source": "scraper",
-    "last_seen_at": "2026-04-12T05:48:56.424215+00:00",
-    "schema_version": "1"
   },
   {
     "id": "a045295dc1d261a99f87bd0ed30cd053f796bbb7",
@@ -68,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-04-12T05:48:56.424228+00:00",
+    "last_seen_at": "2026-04-13T06:07:52.380641+00:00",
     "schema_version": "1"
   },
   {
@@ -86,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-04-12T05:48:56.424238+00:00",
+    "last_seen_at": "2026-04-13T06:07:52.380653+00:00",
     "schema_version": "1"
   },
   {
@@ -104,7 +86,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-04-12T05:48:56.424247+00:00",
+    "last_seen_at": "2026-04-13T06:07:52.380664+00:00",
     "schema_version": "1"
   }
 ]
