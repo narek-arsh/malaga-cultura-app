@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-05-28T07:45:14.181913+00:00",
+    "last_seen_at": "2026-05-29T07:43:59.965519+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-05-28T07:45:14.181964+00:00",
+    "last_seen_at": "2026-05-29T07:43:59.965568+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -50,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-05-28T07:45:14.181941+00:00",
+    "last_seen_at": "2026-05-29T07:43:59.965547+00:00",
     "schema_version": "1"
   },
   {
@@ -58,7 +58,7 @@
     "type": "exhibition",
     "title": "Joana Vasconcelos",
     "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Vasconcelos_Gestalt2017_AJV_F_01_8e2af7ccf1.jpg?updatedAt=1773731899830",
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_MPM_Exposicion_Joana_Vasconcelos_Transfiguracion_01_925545bb30.jpg?updatedAt=1779987994866",
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
@@ -68,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-05-28T07:45:14.181953+00:00",
+    "last_seen_at": "2026-05-29T07:43:59.965558+00:00",
     "schema_version": "1"
   }
 ]
