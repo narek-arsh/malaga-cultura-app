@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-06-28T07:41:51.637337+00:00",
+    "last_seen_at": "2026-06-29T08:47:08.277763+00:00",
     "schema_version": "1"
   },
   {
@@ -31,27 +31,9 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-06-28T07:41:51.637390+00:00",
+    "last_seen_at": "2026-06-29T08:47:08.277802+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
-  },
-  {
-    "id": "d8c92626162769a687fd6a8c334353ef58b07cdb",
-    "type": "exhibition",
-    "title": "Reflejos.  Picasso x Barceló",
-    "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Picasso_Barcelo_CADIZ_439ffe81c0.jpg?updatedAt=1774614360802",
-    "institution_id": "mpm",
-    "institution_name": "Museo Picasso Málaga",
-    "city": "Málaga",
-    "url": "https://www.museopicassomalaga.org/exposiciones/reflejos-picasso-x-barcelo-cadiz",
-    "date_start": "2026-03-26",
-    "date_end": "2026-06-28",
-    "status": "scheduled",
-    "all_day": true,
-    "source": "scraper",
-    "last_seen_at": "2026-06-28T07:41:51.637367+00:00",
-    "schema_version": "1"
   },
   {
     "id": "a5f7da315454296ed04c1fc1a5ef9af60bc2ad01",
@@ -68,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-06-28T07:41:51.637379+00:00",
+    "last_seen_at": "2026-06-29T08:47:08.277791+00:00",
     "schema_version": "1"
   }
 ]
