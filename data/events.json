@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-06-30T07:39:56.100374+00:00",
+    "last_seen_at": "2026-07-01T08:00:32.639833+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-06-30T07:39:56.100410+00:00",
+    "last_seen_at": "2026-07-01T08:00:32.639886+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -50,7 +50,25 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-06-30T07:39:56.100399+00:00",
+    "last_seen_at": "2026-07-01T08:00:32.639863+00:00",
+    "schema_version": "1"
+  },
+  {
+    "id": "b89d3b0b09e8a1d2616e65cc8818f93a851c286d",
+    "type": "exhibition",
+    "title": "Munch-Picasso",
+    "description": null,
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Munch_5b414f3ffd.jpg?updatedAt=1782826354283",
+    "institution_id": "mpm",
+    "institution_name": "Museo Picasso Málaga",
+    "city": "Málaga",
+    "url": "https://www.museopicassomalaga.org/exposiciones/munch-picasso",
+    "date_start": "2026-10-30",
+    "date_end": "2027-02-28",
+    "status": "scheduled",
+    "all_day": true,
+    "source": "scraper",
+    "last_seen_at": "2026-07-01T08:00:32.639876+00:00",
     "schema_version": "1"
   }
 ]
