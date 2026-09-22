@@ -1,6 +1,6 @@
 [
   {
-    "id": "fbb1e9d08af337ef7a5c5a9a68124e27c30073f2",
+    "id": "2d9e470d42e1f79c7c7df4a2bf90686b29087f35",
     "type": "exhibition",
     "title": "Pablo Picasso: estructuras de la invención",
     "description": null,
@@ -10,11 +10,11 @@
     "city": "Málaga",
     "url": "https://www.museopicassomalaga.org/exposiciones/pablo-picasso-estructuras-de-la-invencion",
     "date_start": "2024-03-19",
-    "date_end": "2028-01-30",
+    "date_end": "2028-03-19",
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-09-21T09:22:10.052264+00:00",
+    "last_seen_at": "2026-09-22T08:51:35.447067+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-09-21T09:22:10.052311+00:00",
+    "last_seen_at": "2026-09-22T08:51:35.447147+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -50,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-09-21T09:22:10.052293+00:00",
+    "last_seen_at": "2026-09-22T08:51:35.447124+00:00",
     "schema_version": "1"
   },
   {
@@ -68,7 +68,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-09-21T09:22:10.052302+00:00",
+    "last_seen_at": "2026-09-22T08:51:35.447137+00:00",
     "schema_version": "1"
   }
 ]
