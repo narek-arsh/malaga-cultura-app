@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-09-27T09:36:45.473795+00:00",
+    "last_seen_at": "2026-09-28T10:14:56.585474+00:00",
     "schema_version": "1"
   },
   {
@@ -31,27 +31,9 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-09-27T09:36:45.473848+00:00",
+    "last_seen_at": "2026-09-28T10:14:56.585513+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
-  },
-  {
-    "id": "a5f7da315454296ed04c1fc1a5ef9af60bc2ad01",
-    "type": "exhibition",
-    "title": "Joana Vasconcelos",
-    "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_MPM_Exposicion_Joana_Vasconcelos_Transfiguracion_01_925545bb30.jpg?updatedAt=1779987994866",
-    "institution_id": "mpm",
-    "institution_name": "Museo Picasso Málaga",
-    "city": "Málaga",
-    "url": "https://www.museopicassomalaga.org/exposiciones/joana-vasconcelos-transfiguracion",
-    "date_start": "2026-05-29",
-    "date_end": "2026-09-27",
-    "status": "scheduled",
-    "all_day": true,
-    "source": "scraper",
-    "last_seen_at": "2026-09-27T09:36:45.473824+00:00",
-    "schema_version": "1"
   },
   {
     "id": "b89d3b0b09e8a1d2616e65cc8818f93a851c286d",
@@ -68,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-09-27T09:36:45.473837+00:00",
+    "last_seen_at": "2026-09-28T10:14:56.585501+00:00",
     "schema_version": "1"
   }
 ]
