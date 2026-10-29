@@ -14,7 +14,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-10-28T10:05:50.874894+00:00",
+    "last_seen_at": "2026-10-29T10:30:17.062381+00:00",
     "schema_version": "1"
   },
   {
@@ -31,7 +31,7 @@
     "all_day": false,
     "status": "scheduled",
     "source": "manual",
-    "last_seen_at": "2026-10-28T10:05:50.874923+00:00",
+    "last_seen_at": "2026-10-29T10:30:17.062410+00:00",
     "schema_version": "1",
     "id": "4f0148b362dfaa169e1a16fe40a869d53b2ec9a7"
   },
@@ -40,7 +40,7 @@
     "type": "exhibition",
     "title": "Munch-Picasso",
     "description": null,
-    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Expo_Munch_5b414f3ffd.jpg?updatedAt=1782826354283",
+    "image_url": "https://stunning-blessing-574f5b9b6f.media.strapiapp.com/zoom_Exposicion_Munch_Picasso07_83dfe3b800.jpg?updatedAt=1793211641480",
     "institution_id": "mpm",
     "institution_name": "Museo Picasso Málaga",
     "city": "Málaga",
@@ -50,7 +50,7 @@
     "status": "scheduled",
     "all_day": true,
     "source": "scraper",
-    "last_seen_at": "2026-10-28T10:05:50.874917+00:00",
+    "last_seen_at": "2026-10-29T10:30:17.062403+00:00",
     "schema_version": "1"
   }
 ]
